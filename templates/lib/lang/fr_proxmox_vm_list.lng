@@ -1,0 +1,13 @@
+<?php
+
+$wb["list_head_txt"] = 'Liste serveurs virtuels';
+$wb["list_desc_txt"] = 'Liste des machines virtuelles que vous contrôlez';
+$wb["client_id_txt"] = 'Client';
+$wb["vm_name_txt"] = 'Nom serveur virtuel';
+$wb["vm_description_txt"] = 'Déscription';
+$wb["vm_pvesvr_txt"] = 'Serveur Hôte';
+$wb["vm_id_txt"] = 'VM id';
+$wb["add_new_assignation_txt"] = 'Assigner une VM';
+$wb["edit_txt"] = 'Éditer' ;
+
+?>

@@ -1,0 +1,67 @@
+<input name="id" id="id" value="{tmpl_var name='id'}" size="30" maxlength="255" type="hidden" class="form-control" />
+<input name="vm_pvesvr" id="vm_pvesvr" value="{tmpl_var name='vm_pvesvr'}" size="30" maxlength="255" type="hidden" class="form-control" />
+
+<div class='page-header'>
+	<h1><tmpl_var name="list_head_txt"></h1>
+</div>
+<p><tmpl_var name="list_desc_txt"></p>
+
+<p class="fieldset-legend">{tmpl_var name="toolsarea_head_txt"}</p>
+
+<div class="tab-content">
+	<div class="form-group">
+		<label class="col-sm-3 control-label"  for="refreshinterval"><tmpl_var name="vm_timeframe"></label>
+		<div class="col-sm-9">
+			<select id="periode"  name="periode" class="form-control">
+				<option>{tmpl_var name="vm_select_timeframe_txt"}</option>
+				<option value="ah"><tmpl_var name="vm_avg_hour"></option>
+				<option value="mh"><tmpl_var name="vm_max_hour"></option>
+				<option value="ad"><tmpl_var name="vm_avg_day"></option>
+				<option value="md"><tmpl_var name="vm_max_day"></option>
+				<option value="aw"><tmpl_var name="vm_avg_week"></option>
+				<option value="mw"><tmpl_var name="vm_max_week"></option>
+				<option value="am"><tmpl_var name="vm_avg_month"></option>
+				<option value="mm"><tmpl_var name="vm_max_month"></option>
+				<option value="ay"><tmpl_var name="vm_avg_year"></option>
+				<option value="my"><tmpl_var name="vm_max_year"></option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group" id="graph">
+		
+	</div>
+	
+	<div class="clear"><div class="right">
+		<button class="btn btn-default formbutton-default" type="button" data-load-content="proxmox/proxmox_vm_list.php">{tmpl_var name='btn_cancel_txt'}</button>
+	</div></div>
+			
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    jQuery('#periode').change(function(){
+		
+		jQuery.post( "/proxmox/ajax_graph.php", {periode:jQuery(this).val(), vm:{tmpl_var name='id'}, vm_pvesvr:'{tmpl_var name='vm_pvesvr'}'},
+			function(resultat) {
+				var tbl_image = JSON.parse(resultat);
+
+				jQuery('#graph').empty();
+				
+				jQuery.each(tbl_image, function(key, item) {
+					var div = jQuery("<div/>");
+						//div.attr('class','form-group');
+						
+					var img = jQuery("<img/>");
+						img.attr('src', 'data:image/png;base64,'+item);
+						img.attr('style', 'width:100%');
+					
+					jQuery(div).append("<h3> " + key + " </h3>");
+					jQuery(div).append(img);
+					
+					jQuery('#graph').append(div);
+				});
+			}
+		);
+	});
+</script>

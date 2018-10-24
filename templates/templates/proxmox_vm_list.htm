@@ -1,0 +1,58 @@
+<div class='page-header'>
+	<h1><tmpl_var name="list_head_txt"></h1>
+</div>
+<p><tmpl_var name="list_desc_txt"></p>
+
+<p class="fieldset-legend">{tmpl_var name="toolsarea_head_txt"}</p>
+            
+<button class="btn btn-default formbutton-success" type="button" data-load-content="proxmox/proxmox_vm_edit.php">{tmpl_var name="add_new_assignation_txt"}</button>
+		
+<p class="fieldset-legend"><tmpl_var name="list_head_txt"></p>
+<div class="table-wrapper marginTop15">
+	<table class="table">
+        <thead class="dark form-group-sm">
+            <tr>
+                <th data-column="sys_groupid"><tmpl_var name="client_id_txt"></th>
+                <th class="tiny-col" data-column="vm_id"><tmpl_var name="vm_id_txt"></th>
+                <th data-column="vm_name"><tmpl_var name="vm_name_txt"></th>
+                <th data-column="vm_description"><tmpl_var name="vm_description_txt"></th>
+                <th class="small-col text-right">{tmpl_var name='search_limit'}</th>
+            </tr>
+            <tr>
+                <td><select class="form-control" name="search_sys_groupid">{tmpl_var name='search_sys_groupid'}</select></td>
+                <td><input class="form-control" type="text" name="search_vm_id" value="{tmpl_var name='search_vm_id'}" /></td>
+                <td><input class="form-control" type="text" name="search_vm_name" value="{tmpl_var name='search_vm_name'}" /></td>
+                <td><input class="form-control" type="text" name="search_vm_description" value="{tmpl_var name='search_vm_description'}" /></td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-default formbutton-default formbutton-narrow" name="Filter" id="Filter" value="{tmpl_var name="filter_txt"}" data-submit-form="pageForm" data-form-action="proxmox/proxmox_vm_list.php"><span class="icon icon-filter"></span></button>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tmpl_loop name="records">
+                <tr>
+                    <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="sys_groupid"}</a></td>
+                    <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_id"}</a></td>
+                    <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_name"}</a></td>
+                    <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_description"}</a></td>                    
+                    <td class="text-right">
+                    	<a  type="button" class="btn btn-default formbutton-default formbutton-narrow" name="Edit" id="Edit" value="{tmpl_var name="edit_txt"}" href="#" data-load-content="proxmox/proxmox_vm_edit.php?id={tmpl_var name='id'}" ><span class="icon icon-edit"></span></a>
+                    	<tmpl_if name="is_admin">
+                  			<a class="btn btn-default formbutton-danger formbutton-narrow" href="javascript: ISPConfig.confirm_action('proxmox/proxmox_vm_del.php?id={tmpl_var name='id'}&phpsessid={tmpl_var name='phpsessid'}','{tmpl_var name='delete_confirmation'}');"><span class="icon icon-delete"></span></button>
+                   		</tmpl_if>
+                    </td>
+                </tr>
+            </tmpl_loop>
+            <tmpl_unless name="records">
+                <tr class="tbl_row_noresults tbl_row_<tmpl_if name='__EVEN__'}even<tmpl_else>uneven</tmpl_if>">
+                    <td colspan="5">{tmpl_var name='globalsearch_noresults_text_txt'}</td>
+                </tr>
+            </tmpl_unless>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5"><tmpl_var name="paging"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

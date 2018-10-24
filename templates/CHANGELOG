@@ -1,0 +1,13 @@
+# v0.3 
+- Add possibility to enable or disable networks
+- Show networks devices configurations
+- Add task history for admin
+
+# v0.2
+- Update module for ISPConfig 3.1
+- Add support of LXC Containers
+- Add auto determination of node's vm
+- Convert SQL table vm_proxmox InnoDB to MyISAM (ispconfig default)
+- Fixed somes Bugs
+- Change Proxmox api setting location
+- Code cliean up

@@ -1,0 +1,120 @@
+<input name="id" id="id" value="{tmpl_var name='id'}" type="hidden"/>
+<input name="vm_pvesvr" id="vm_pvesvr" value="{tmpl_var name='vm_pvesvr'}" type="hidden" />
+
+<div class='page-header'>
+	<h1><tmpl_var name="list_head_txt"></h1>
+</div>
+<p><tmpl_var name="list_desc_txt"></p>
+
+
+<div class="tab-content">
+	<div class="tab-pane active fade in">
+			
+		<table class="table">
+			<tbody>
+				<tmpl_if name="is_admin">
+					<tr>
+						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
+						<td>{tmpl_var name='vm_id'}</td>
+					</tr>
+					<tr>
+						<td for="vm_pvesvr"><tmpl_var name="vm_pvesvr_txt"></td>
+						<td>{tmpl_var name='vm_pvesvr'}</td>
+					</tr>
+				</tmpl_if>
+				<tr>
+					<td for="vm_name"><tmpl_var name="vm_nom_txt"></td>
+					<td>{tmpl_var name='vm_name'}</td>
+				</tr>
+				<tr >
+					<td for="vm_status"><tmpl_var name="vm_status_txt"></td>
+					<td>{tmpl_var name='vm_status'}</td>
+				</tr>
+				<tr>
+				         <td for="vm_ostype"><tmpl_var name="vm_ostype_txt"></td>
+				         <td>{tmpl_var name='vm_ostype'}</td>
+				</tr>
+				<tr>
+				         <td for="vm_arch"><tmpl_var name="vm_arch_txt"></td>
+				         <td>{tmpl_var name='vm_arch'}</td>
+				</tr>
+				<tr>
+					<td for="vm_load"><tmpl_var name="vm_load_txt"></td>
+					<td>{tmpl_var name='vm_load'}</td>
+				</tr>
+				<tr>
+					<td for="vm_uptime"><tmpl_var name="vm_uptime_txt"></td>
+					<td>{tmpl_var name='vm_uptime'} {tmpl_var name='vm_time_txt'}</td>
+				</tr>
+				<tr>
+					<td for="vm_cpu"><tmpl_var name="vm_cpu_txt"></td>
+					<td>{tmpl_var name='vm_cpu'}</td>
+				</tr>
+				<tr>
+					<td for=""><tmpl_var name="vm_memoire_txt"></td>
+					<td>
+					<div class='progress'>
+						<div class='progress-bar progress-bar-{tmpl_if name="used_percentage" op="<" value="50"}success{tmpl_elseif name="used_percentage" op="<" value="75"}warning{tmpl_else}danger{/tmpl_if}' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='{tmpl_var name="used_percentage"}' style='width:{tmpl_var name="used_percentage"}%'>
+						<span class='sr-only'>{tmpl_var name='used'} {tmpl_var name='of_txt'} {tmpl_var name='soft'}</span>
+						</div>
+					</div>
+					( {tmpl_var name='vm_mem'} / {tmpl_var name='vm_maxmem'} MB )
+					</td>
+				</tr>
+				<tr>
+					<td for="vm_hdd"><tmpl_var name="vm_maxhdd_txt"></td>
+					<td>{tmpl_var name='vm_maxhdd'} GB</td>
+				</tr>
+				<tr>
+				        <td for="vm_netin"><tmpl_var name="vm_netin_txt"></td>
+				        <td>{tmpl_var name='vm_netin'} kb/s</td>
+				</tr>
+				<tr>
+				        <td for="vm_netout"><tmpl_var name="vm_netout_txt"></td>
+				        <td>{tmpl_var name='vm_netout'} kb/s</td>
+				</tr>
+				
+				<tmpl_loop name="networks">
+					<tr>
+						<td><tmpl_var name="interface"></td>
+						<td>
+							<div>{tmpl_var name='vm_ip_txt'} : <tmpl_var name="ip"></div>
+							<div>{tmpl_var name='vm_mac_txt'} : <tmpl_var name="hwaddr"><tmpl_var name="virtio"></div>
+							<div><a href="#" data-submit-form="pageForm" data-form-action="proxmox/ajax_config.php?interface={tmpl_var name='interface'}" >{tmpl_var name='vm_disconnect_txt'} : {tmpl_var name='link_state'}</a></div>
+							<tmpl_if name="is_admin">
+								<tmpl_if name="tag">
+									<div>{tmpl_var name='vm_tag_txt'} : <tmpl_var name="tag"></div>
+								</tmpl_if>
+								<tmpl_if name="bridge">
+									<div>{tmpl_var name='vm_bridge_txt'} : <tmpl_var name="bridge"></div>
+								</tmpl_if>
+								<tmpl_if name="rate">
+									<div>{tmpl_var name='vm_rate_txt'} : <tmpl_var name="rate"></div>
+								</tmpl_if>
+							</tmpl_if>
+						</td>
+					</tr>
+          	  	</tmpl_loop>
+			<tr>
+			          <td for="vm_nameserver"><tmpl_var name="vm_nameserver_txt"></td>
+			          <td>{tmpl_var name='vm_nameserver'}</td>
+			</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+		        	<td colspan="2">
+		        		<div class="right">
+						    <button class="btn btn-default formbutton-success" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=start">{tmpl_var name='vm_start_txt'}</button>
+							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=shutdown">{tmpl_var name='vm_shutdown_txt'}</button>
+							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=reset">{tmpl_var name='vm_reset_txt'}</button>
+							<button class="btn btn-default formbutton-danger"data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=kill">{tmpl_var name='vm_kill_txt'}</button>
+							<button class="btn btn-default formbutton-default" data-load-content="proxmox/proxmox_vm_list.php">{tmpl_var name='btn_cancel_txt'}</button>
+						</div>
+					</td>
+		    	</tr>
+			</tfoot>
+		</table>	
+		
+	</div>
+</div>
+

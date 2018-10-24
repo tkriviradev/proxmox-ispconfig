@@ -1,0 +1,23 @@
+<?php
+
+$wb['Virtuals servers'] = 'Virtuals servers';
+$wb['Assignation'] = 'Assign a virtual server';
+$wb['Graphiques'] = 'Graphics';
+$wb['VPS'] = 'Virtuals servers';
+$wb['task_title_txt'] = 'Task history';
+$wb['task_description_txt'] = '';
+$wb['start_time_txt'] = 'Start time';
+$wb['end_time_txt'] = 'End time';
+$wb['username_txt'] = 'Username';
+$wb['description_txt'] = 'Description';
+$wb['status_txt'] = 'Status';
+$wb['qmstart'] = 'Start' ;
+$wb['qmstop'] = 'Stop' ;
+$wb['qmshutdown'] = 'Shutdown' ;
+$wb['qmsnapshot'] = 'Snapshot' ;
+$wb['qmdelsnapshot'] = 'Snapshot removed' ;
+$wb['qmreset'] = 'Reset' ;
+$wb['vncproxy'] = 'Console' ;
+$wb['qmsuspend'] = 'Suspend' ;
+$wb['qmresume'] = 'Resume' ;
+?>

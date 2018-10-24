@@ -1,0 +1,73 @@
+<input name="id" id="id" value="{tmpl_var name='id'}" type="hidden"/>
+<input name="vm_pvesvr" id="vm_pvesvr" value="{tmpl_var name='vm_pvesvr'}" type="hidden" />
+
+<div class='page-header'>
+	<h1><tmpl_var name="list_head_txt"></h1>
+</div>
+<p><tmpl_var name="list_desc_txt"></p>
+
+
+<div class="tab-content">
+	<div class="tab-pane active fade in">
+			
+		<table class="table">
+			<tbody>
+				<tmpl_if name="is_admin">
+					<tr>
+						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
+						<td>{tmpl_var name='vm_id'}</td>
+					</tr>
+					<tr>
+						<td for="vm_pvesvr"><tmpl_var name="vm_pvesvr_txt"></td>
+						<td>{tmpl_var name='vm_pvesvr'}</td>
+					</tr>
+					<tr>
+                                                <td for="vm_rep_target"><tmpl_var name="vm_rep_target_txt"></td>
+                                                <td>{tmpl_var name='vm_rep_target'}</td>
+                                       </tr>
+				       <tr>
+					        <td for="vm_rep_fail_count"><tmpl_var name="vm_rep_fail_count_txt"></td>
+					        <td>{tmpl_var name='vm_rep_fail_count'}</td>
+				       </tr>
+				</tmpl_if>
+				<tr>
+					     <td for="vm_rep_schedule"><tmpl_var name="vm_rep_schedule_txt"></td>
+					          <td>{tmpl_var name='vm_rep_schedule'}</td>
+				</tr>
+				<tr>
+					     <td for="vm_rep_duration"><tmpl_var name="vm_rep_duration_txt"></td>
+					          <td>{tmpl_var name='vm_rep_duration'}/s</td>
+				</tr>
+				<tr>
+					     <td for="vm_rep_next_sync"><tmpl_var name="vm_rep_next_sync_txt"></td>
+					          <td>{tmpl_var name='vm_rep_next_sync'}</td>
+				</tr>
+				<tr>
+					     <td for="vm_rep_last_sync"><tmpl_var name="vm_rep_last_sync_txt"></td>
+					          <td>{tmpl_var name='vm_rep_last_sync'}</td>
+				</tr>
+				<tr>
+					     <td for="vm_rep_comment"><tmpl_var name="vm_rep_comment_txt"></td>
+					          <td>{tmpl_var name='vm_rep_comment'}</td>
+				</tr>
+				
+			</tbody>
+	<!--		<tfoot>
+<iframe src="https://hosting01.dcp.solutions:8082/?console=lxc&xtermjs=1&vmid={tmpl_var name='vm_id'}&node={tmpl_var name='vm_pvesvr'}" frameborder="0" scrolling="no" width="800px" height="600px"></iframe>
+				<tr>
+		        	<td colspan="2">
+		        		<div class="right">
+						    <button class="btn btn-default formbutton-success" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=start">{tmpl_var name='vm_start_txt'}</button>
+							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=shutdown">{tmpl_var name='vm_shutdown_txt'}</button>
+							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=reset">{tmpl_var name='vm_reset_txt'}</button>
+							<button class="btn btn-default formbutton-danger"data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=kill">{tmpl_var name='vm_kill_txt'}</button>
+							<button class="btn btn-default formbutton-default" data-load-content="proxmox/proxmox_vm_list.php">{tmpl_var name='btn_cancel_txt'}</button>
+						</div>
+					</td>
+		    	</tr>
+	</tfoot> -->
+		</table>	
+		
+	</div>
+</div>
+
