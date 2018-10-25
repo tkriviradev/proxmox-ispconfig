@@ -14,14 +14,22 @@
 			<tbody>
 				<tmpl_if name="is_admin">
 					<tr>
-						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
-						<td>{tmpl_var name='vm_id'}</td>
-					</tr>
-					<tr>
 						<td for="vm_pvesvr"><tmpl_var name="vm_pvesvr_txt"></td>
 						<td>{tmpl_var name='vm_pvesvr'}</td>
 					</tr>
 				</tmpl_if>
+				<tr>
+					<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
+					<td>{tmpl_var name='vm_id'}</td>
+				</tr>
+			         <tr>
+                                        <td for="vm_name"><tmpl_var name="vm_nom_txt"></td>
+                                        <td>{tmpl_var name='vm_name'}</td>
+                                </tr>
+				<tr>
+                                         <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
+                                         <td>{tmpl_var name='vm_parent'}</td>
+                                </tr>
 				<tr>
                                              <td for="vm_snp_name"><tmpl_var name="vm_snp_name_txt"></td>
                                                   <td>{tmpl_var name='vm_snp_name'}</td>

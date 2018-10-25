@@ -96,6 +96,13 @@ $form["tabs"]['backupreplication'] = array (
        'readonly' => true,
 );
 
+$form["tabs"]['instancelogs'] = array (
+       'title'  => "Logs", // Need to translate with variable
+       'width'  => 100,
+       'template'  => "templates/proxmox_vm_logs.htm",
+       'readonly' => true,
+);
+
 $form["tabs"]['snapshotes'] = array (
        'title'  => "Snapshotes", // Need to translate with variable
        'width'  => 100,

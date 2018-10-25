@@ -15,6 +15,7 @@ $wb["vm_snp_parent_txt"] = 'parent';
 $wb["vm_snp_snaptime_txt"] = 'snaptime';
 $wb["vm_snp_description_txt"] = 'description';
 $wb["vm_snap_txt"] = 'VM Snapshotes';
+$wb["vm_parent_txt"] = 'VM Snapshotes';
 $wb["vm_memoire_txt"] = 'Memory';
 $wb["vm_maxhdd_txt"] = 'Quota Hard disk';
 $wb["vm_netin_txt"] = 'Net in';

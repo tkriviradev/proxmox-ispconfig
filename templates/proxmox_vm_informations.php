@@ -82,6 +82,7 @@ class page_action extends tform_actions {
 						{
 							$app->tpl->setVar("vm_name", $vm_status['name']);
 							$app->tpl->setVar("vm_status", $vm_status['status']);
+							$app->tpl->setVar("vm_parent", $vm_config['parent']);
 							$app->tpl->setVar("vm_ostype", $vm_config['ostype']);
 							$app->tpl->setVar("vm_arch", $vm_config['arch']);
 							$app->tpl->setVar("vm_nameserver", $vm_config['nameserver']);
