@@ -11,7 +11,7 @@ require_once '../../lib/app.inc.php';
 * Begin Form configuration
 ******************************************/
 
-$list_def_file = "list/proxmox_vm.list.php";
+$list_def_file = "list/proxmox_cn.list.php";
 
 /******************************************
 * End Form configuration

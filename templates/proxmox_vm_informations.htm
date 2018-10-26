@@ -14,13 +14,14 @@
 			<tbody>
 				<tmpl_if name="is_admin">
 					<tr>
-						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
-						<td>{tmpl_var name='vm_id'}</td>
-					</tr>
-					<tr>
 						<td for="vm_pvesvr"><tmpl_var name="vm_pvesvr_txt"></td>
 						<td>{tmpl_var name='vm_pvesvr'}</td>
 					</tr>
+					<tr>
+						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
+						<td>{tmpl_var name='vm_id'}</td>
+					</tr>
+
 				</tmpl_if>
 				<tr>
 					<td for="vm_name"><tmpl_var name="vm_nom_txt"></td>
@@ -43,16 +44,19 @@
 				         <td>{tmpl_var name='vm_arch'}</td>
 				</tr>
 				<tr>
-					<td for="vm_load"><tmpl_var name="vm_load_txt"></td>
-					<td>{tmpl_var name='vm_load'}</td>
-				</tr>
-				<tr>
 					<td for="vm_uptime"><tmpl_var name="vm_uptime_txt"></td>
 					<td>{tmpl_var name='vm_uptime'} {tmpl_var name='vm_time_txt'}</td>
 				</tr>
 				<tr>
-					<td for="vm_cpu"><tmpl_var name="vm_cpu_txt"></td>
-					<td>{tmpl_var name='vm_cpu'}</td>
+					<td for=""><tmpl_var name="vm_cpu_txt"></td>
+					<td>
+					<div class='progress'>
+						<div class='progress-bar progress-bar-{tmpl_if name="used_percentage1" op="<" value="50"}success{tmpl_elseif name="used_percentage1" op="<" value="75"}warning{tmpl_else}danger{/tmpl_if}' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='{tmpl_var name="used_percentage1"}' style='width:{tmpl_var name="used_percentage1"}%'>
+						<span class='sr-only'>{tmpl_var name='used'} {tmpl_var name='of_txt'} {tmpl_var name='soft'}</span>
+						</div>
+					</div>
+					( {tmpl_var name='vm_cpuu'}% of {tmpl_var name='vm_cpu'} CPUs )
+					</td>
 				</tr>
 				<tr>
 					<td for=""><tmpl_var name="vm_memoire_txt"></td>

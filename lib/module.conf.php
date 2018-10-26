@@ -27,11 +27,16 @@ if($_SESSION["s"]["user"]["typ"] == 'admin') {
 
 
 
-$items[] = array( 'title'  => 'Virtuals servers',
+$items[] = array( 'title'  => 'Virtuals Instances',
 	'target'  => 'content',
 	'link' => 'proxmox/proxmox_vm_list.php',
 	'html_id' => 'proxmox_vm_list');
 
+
+$items[] = array( 'title'  => 'Containers',
+	'target'  => 'content',
+	'link' => 'proxmox/proxmox_cn_list.php',
+	'html_id' => 'proxmox_cn_list');
 
 if(count($items))
 {

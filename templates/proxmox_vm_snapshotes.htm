@@ -30,7 +30,7 @@
                                          <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
                                          <td>{tmpl_var name='vm_parent'}</td>
                                 </tr>
-				<tr>
+<!---				<tr>
                                              <td for="vm_snp_name"><tmpl_var name="vm_snp_name_txt"></td>
                                                   <td>{tmpl_var name='vm_snp_name'}</td>
                                 </tr>
@@ -45,7 +45,14 @@
                                 <tr>
                                              <td for="vm_snp_description"><tmpl_var name="vm_snp_description_txt"></td>
                                                   <td>{tmpl_var name='vm_snp_description'}</td>
-                                </tr>
+				</tr> -->
+                                <tmpl_loop name="snapshots">
+                                        <tr>
+                                                <td><tmpl_var name="vm_snapshot"></td>
+                                                        <div>{tmpl_var name='vm_snapshot_txt'} : <tmpl_var name="vm_snapshot"></div>
+                                                </td>
+                                        </tr>
+                        	</tmpl_loop>
 				
 			</tbody>
 	<!--		<tfoot>
