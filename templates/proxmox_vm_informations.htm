@@ -69,10 +69,14 @@
 					( {tmpl_var name='vm_mem'} / {tmpl_var name='vm_maxmem'} MB )
 					</td>
 				</tr>
-				<tr>
-					<td for="vm_hdd"><tmpl_var name="vm_maxhdd_txt"></td>
-					<td>{tmpl_var name='vm_maxhdd'} GB</td>
-				</tr>
+				<tmpl_loop name="hdds">
+					<tr>
+						<td>{tmpl_var name='vm_hdd_txt'}: <tmpl_var name="hddsnum"></td>
+						<td>
+						    <div><tmpl_var name="size"></div>
+						</td>
+					</tr>
+          	  		</tmpl_loop>
 				<tr>
 				        <td for="vm_netin"><tmpl_var name="vm_netin_txt"></td>
 				        <td>{tmpl_var name='vm_netin'} kb/s</td>

@@ -54,7 +54,39 @@ class page_action extends tform_actions {
 					break; 
 
 					//snapshotes
+					case 'snapshots':	
+						$vm_snapshot = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/snapshot");
 
+						$snapshotdata = array_keys($vm_snapshot);
+        					$vmsnap = json_decode($snapshotdata,true);
+        				#	foreach($vmsnap as $data){
+           						$app->tpl->setVar("vm_snp_name", "Name: " );
+           				#		$app->tpl->setVar("vm_snp_parent", $outputsnp = "Parent: " .$data['parent']);
+           				#		$app->tpl->setVar("vm_snp_snaptime", $outputsnp = "Snaptime: " .$data['snaptime']);
+           				#		$app->tpl->setVar("vm_snp_description", $outputsnp = "Description: " .$data['description']);
+       					#        }
+						$keys = array_keys($vm_snapshot);
+						$snap_temp = preg_grep('/^name/',$keys);
+						$arr_snap = array();
+						var_dump($snap_temp);
+						foreach($snap_temp as $snap)
+						{
+							$settings_temp = explode(',', $vm_snapshot);
+							$arr_snap[$snap]['name'] = $snap;
+							foreach($settings_temp as $settings )
+							{
+								list($k, $v) = explode('=', $settings);
+								$arr_snap[$snap][$k] = $v;
+							}
+						}
+						
+						$app->tpl->setloop('snapshots', $arr_snap);
+
+					break;
+					 // echo $outputsnp;
+						
+        				// echo $outputsnp;
+					
 					case 'backupreplication':
 						$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
 			
@@ -93,6 +125,7 @@ class page_action extends tform_actions {
 							$app->tpl->setVar("vm_cpuu",  number_format ($vm_status['cpu'] * 100, 2 ) );
 							$app->tpl->setVar("vm_mem", $app->functions->intval($vm_status['mem']/1024/1024 ) );
 							$app->tpl->setVar("vm_maxmem", $app->functions->intval($vm_status['maxmem']/1024/1024 ) );
+							//$app->tpl->setVar("vm_maxhdd", $app->functions->intval($vm_status['maxdisk'] /1024 /1024 / 1024 ) );
 							$app->tpl->setVar("vm_netin", $app->functions->intval($vm_status['netin']/1024 /1024 ) );
 							$app->tpl->setVar("vm_netout", $app->functions->intval($vm_status['netout'] /1024 /1024 /1024 ) );
 					
@@ -106,36 +139,33 @@ class page_action extends tform_actions {
 						{
 							$app->error($app->tform->wordbook["vm_err_assignation"]);
 						}
-
-						break;
-
-						case 'hdds':
+					
+						case 'get_hhds':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
 
-						$keys = array_keys($vm_config);
-                        $hdd_temp = preg_grep('/^scsi[0-9]+/', $keys);
+						$keys1 = array_keys($vm_config);
+                        			$hdd_temp = preg_grep('/^scsi[0-9]+/', $keys1);
                         
-                        $arr_hdd = array();
-                        foreach ($hdd_temp as $hdd) {
-                            $settings_temp = explode(',', $vm_config[$hdd]);
+                        			$arr_hdd = array();
+                        			foreach ($hdd_temp as $hdd) 
+						{
+                            				$settings_temp1 = explode(',', $vm_config[$hdd]);
+                            				$arr_hdd[$hdd]['hddsnum'] = $hdd;
                             
-                            $arr_hdd[$hdd]['hddsnum'] = $hdd;
-                            
-                            foreach ($settings_temp as $settings) {
-                                list($k, $v) = explode('=', $settings);
+                            				foreach ($settings_temp1 as $settings1) 
+							{
+								list($kk, $vv) = explode('=', $settings1);
                                 
-                                if (preg_match('/(datapool|size)/i', $k)) {
-                                    $arr_hdd[$hdd]['datapool'|'size'] = $v;
-                                }
-                                $arr_hdd[$hdd][$k] = $v;
-                            }
-                        }
+								if (preg_match('/(size)/i', $kk ) ) 
+								{
+                                    				$arr_hdd[$hdd]['size'] = $vv;
+                                				}
+                                				($arr_hdd[$hdd][$kk] = $vv);
+                            				}
+                       	 			}			
                         
-                        $app->tpl->setloop('hdds', $arr_hdd);
                         
-                        break;
-
-
+						case 'get_network':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
 
 						$keys = array_keys($vm_config);
@@ -162,7 +192,7 @@ class page_action extends tform_actions {
 						}
 						
 						$app->tpl->setloop('networks', $arr_net);
-						
+                        			$app->tpl->setloop('hdds', $arr_hdd);
 						break;
 				}
 				
@@ -185,3 +215,4 @@ $page = new page_action;
 $page->onLoad();
 
 ?>
+
