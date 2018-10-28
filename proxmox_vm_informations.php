@@ -144,25 +144,16 @@ class page_action extends tform_actions {
 						$vm_snapshot = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/snapshot");
 
 						$keys2 = array_keys($vm_snapshot);
-                        			$snp_temp = preg_grep('/^[1-9]+/', $keys2);
+						$snp_temp = preg_grep('/^[1-9]+/', $keys2);
                         
-                        			$arr_snp = array();
                         			foreach ($snp_temp as $snp) 
-						{
-                            				$settings_temp2 = explode(',', $vm_snapshot[$snp]);
-                            				$arr_snp[$snp]['snpnum'] = $snp;
-                            
-                            				foreach ($settings_temp2 as $settings2) 
 							{
-								list($kkk, $vvv) = explode('=', $settings2);
-                                
-								if (preg_match('/(name)/i', $kkk ) ) 
-								{
-                                    				$arr_snp[$snp]['name'] = $vvv;
-                                				}
-                                				($arr_snp[$snp][$kkk] = $vvv);
-                            				}
-                       	 			}			
+                            					//$arr_snp[$snp]['snpnum'] = $snp;
+								// $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
+								// $arr_snp[$snp]['snpnum'] = implode(" ", array_keys($vm_snapshot[$snp]));
+								   $arr_snp[$snp]['snpnum'] = $vm_snapshot[$snp]['name'];
+								// $arr_snp[$snp]['snpnum'] = array_combine(array_column($vm_snapshot[$snp], 'name'), $vm_snapshot[$snp]);
+                       	 				}			
 
 						case 'get_hhds':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
