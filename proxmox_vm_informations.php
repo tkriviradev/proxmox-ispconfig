@@ -53,39 +53,6 @@ class page_action extends tform_actions {
 						//DO SOMETHING HERE
 					break; 
 
-					//snapshotes
-					//case 'snapshots':	
-					//	$vm_snapshot = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/snapshot");
-					//
-				//		$snapshotdata = array_keys($vm_snapshot);
-        			//		$vmsnap = json_decode($snapshotdata,true);
-        				#	foreach($vmsnap as $data){
-           			//			$app->tpl->setVar("vm_snp_name", "Name: " );
-           				#		$app->tpl->setVar("vm_snp_parent", $outputsnp = "Parent: " .$data['parent']);
-           				#		$app->tpl->setVar("vm_snp_snaptime", $outputsnp = "Snaptime: " .$data['snaptime']);
-           				#		$app->tpl->setVar("vm_snp_description", $outputsnp = "Description: " .$data['description']);
-       				//	#        }
-				//		$keys = array_keys($vm_snapshot);
-				//		$snap_temp = preg_grep('/^name/',$keys);
-				///		$arr_snap = array();
-				//		var_dump($snap_temp);
-				//		foreach($snap_temp as $snap)
-				//		{
-				//			$settings_temp = explode(',', $vm_snapshot);
-				//			$arr_snap[$snap]['name'] = $snap;
-				//			foreach($settings_temp as $settings )
-				//			{
-				//				list($k, $v) = explode('=', $settings);
-				///				$arr_snap[$snap][$k] = $v;
-				//			}
-				//		}
-				//		
-				//		$app->tpl->setloop('snapshots', $arr_snap);
-				//
-				//	break;
-					 // echo $outputsnp;
-						
-        				// echo $outputsnp;
 					
 					case 'backupreplication':
 						$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");

@@ -56,6 +56,9 @@ if(isset($prox_id) && !empty($prox_id))
 					case 'start':
 						$vm_status = ( $pve2->post("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/status/start", array()) ? true : false );
 						break;
+					case 'snapshot':
+						$vm_status = ( $pve2->post("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/snapshot", array()) ? true : false );
+						break;
 					case 'shutdown':
 						$vm_status = ( $pve2->post("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/status/shutdown", array())  ? true : false );
 						break;
