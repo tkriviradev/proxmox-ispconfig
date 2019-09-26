@@ -53,7 +53,6 @@ class page_action extends tform_actions {
 						//DO SOMETHING HERE
 					break; 
 
-					
 					case 'backupreplication':
 						$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
 			
@@ -71,7 +70,7 @@ class page_action extends tform_actions {
 						{
 							$app->error($app->tform->wordbook["vm_err_assignation"]);
 						}
-						break; 
+					break;
 
 					case 'informations':
 					default:
@@ -85,14 +84,14 @@ class page_action extends tform_actions {
 							$app->tpl->setVar("vm_status", $vm_status['status']);
 							$app->tpl->setVar("vm_parent", $vm_config['parent']);
 							$app->tpl->setVar("vm_ostype", $vm_config['ostype']);
-							$app->tpl->setVar("vm_arch", $vm_config['arch']);
+							// $app->tpl->setVar("vm_arch", $vm_config['arch']);
 							$app->tpl->setVar("vm_nameserver", $vm_config['nameserver']);
 							$app->tpl->setVar("vm_uptime", $app->functions->intval($vm_status['uptime'] / 60 / 60 ) );
 							$app->tpl->setVar("vm_cpu",  $vm_status['cpus'] );
 							$app->tpl->setVar("vm_cpuu",  number_format ($vm_status['cpu'] * 100, 2 ) );
 							$app->tpl->setVar("vm_mem", $app->functions->intval($vm_status['mem']/1024/1024 ) );
 							$app->tpl->setVar("vm_maxmem", $app->functions->intval($vm_status['maxmem']/1024/1024 ) );
-							//$app->tpl->setVar("vm_maxhdd", $app->functions->intval($vm_status['maxdisk'] /1024 /1024 / 1024 ) );
+							$app->tpl->setVar("vm_maxhdd", $app->functions->intval($vm_status['maxdisk'] /1024 /1024 / 1024 ) );
 							$app->tpl->setVar("vm_netin", $app->functions->intval($vm_status['netin']/1024 /1024 ) );
 							$app->tpl->setVar("vm_netout", $app->functions->intval($vm_status['netout'] /1024 /1024 /1024 ) );
 					
@@ -113,54 +112,28 @@ class page_action extends tform_actions {
 						$keys2 = array_keys($vm_snapshot);
 						//$snp_temp = preg_grep('/^[1-9]+/', $keys2);
                         
-                        			foreach ($keys2 as $snp) 
+                        foreach ($keys2 as $snp) 
 							{
-                            					//$arr_snp[$snp]['snpnum'] = $snp;
+                            	//$arr_snp[$snp]['snpnum'] = $snp;
 								// $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
 								// $arr_snp[$snp]['snpnum'] = implode(" ", array_keys($vm_snapshot[$snp]));
 								   $arr_snp[$snp]['snpnum'] = $vm_snapshot[$snp]['name'];
 								   $arr_snp[$snp]['snpnum1'] = $vm_snapshot[$snp]['description'];
 								// $arr_snp[$snp]['snpnum'] = array_combine(array_column($vm_snapshot[$snp], 'name'), $vm_snapshot[$snp]);
-                       	 				}			
-
-						case 'get_hhds':
-						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
-
-						$keys1 = array_keys($vm_config);
-                        			$hdd_temp = preg_grep('/^scsi[0-9]+/', $keys1);
-                        
-                        			$arr_hdd = array();
-                        			foreach ($hdd_temp as $hdd) 
-						{
-                            				$settings_temp1 = explode(',', $vm_config[$hdd]);
-                            				$arr_hdd[$hdd]['hddsnum'] = $hdd;
-                            
-                            				foreach ($settings_temp1 as $settings1) 
-							{
-								list($kk, $vv) = explode('=', $settings1);
-                                
-								if (preg_match('/(size)/i', $kk ) ) 
-								{
-                                    				$arr_hdd[$hdd]['size'] = $vv;
-                                				}
-                                				($arr_hdd[$hdd][$kk] = $vv);
-                            				}
-                       	 			}			
-                        
-                        
+                       	 	}
+                
 						case 'get_network':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
 
 						$keys = array_keys($vm_config);
 						$net_temp = preg_grep('/^net[0-9]+/',$keys);
-						
+
 						$arr_net = array();
 						foreach($net_temp as $net)
 						{
 							$settings_temp = explode(',', $vm_config[$net]);
-							
 							$arr_net[$net]['interface'] = $net;
-							
+						
 							foreach($settings_temp as $settings )
 							{
 								list($k, $v) = explode('=', $settings);
@@ -175,17 +148,19 @@ class page_action extends tform_actions {
 						}
 						
 						$app->tpl->setloop('networks', $arr_net);
-                        			$app->tpl->setloop('hdds', $arr_hdd);
-                        			$app->tpl->setloop('snps', $arr_snp);
+                        $app->tpl->setloop('snps', $arr_snp);
 						break;
-				}
+					}
 				
-			} else {
+				}
+			else {
 				//print("Login to Proxmox Host failed.\n");
 				$app->error($app->tform->wordbook["vm_err_login"]);
 				exit;
 			}
-		} else {
+
+		}
+		else {
 			//print("Could not create PVE2_API object.\n");
 			$app->error($app->tform->wordbook["vm_err_api_obj"]);
 			exit;

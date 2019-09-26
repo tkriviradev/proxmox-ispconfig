@@ -29,7 +29,7 @@ class PVE2_API {
 	protected $login_ticket = null;
 	protected $login_ticket_timestamp = null;
 	protected $cluster_node_list = null;
-	public function __construct ($hostname, $username, $realm, $password, $port = 8006, $verify_ssl = false) {
+	public function __construct ($hostname, $username, $realm, $password, $port = 443, $verify_ssl = false) {
 		if (empty($hostname) || empty($username) || empty($realm) || empty($password) || empty($port)) {
 			throw new PVE2_Exception("Hostname/Username/Realm/Password/Port required for PVE2_API object constructor.", 1);
 		}
@@ -72,7 +72,7 @@ class PVE2_API {
 		curl_setopt($prox_ch, CURLOPT_POSTFIELDS, $login_postfields_string);
 		curl_setopt($prox_ch, CURLOPT_SSL_VERIFYPEER, $this->verify_ssl);
 		$login_ticket = curl_exec($prox_ch);
-		$login_request_info = curl_getinfo($prox_ch);
+		$login_request_info = curl_getinfo($prox_ch);		
 		curl_close($prox_ch);
 		unset($prox_ch);
 		unset($login_postfields_string);

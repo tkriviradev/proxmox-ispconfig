@@ -6,10 +6,8 @@
 </div>
 <p><tmpl_var name="list_desc_txt"></p>
 
-
 <div class="tab-content">
 	<div class="tab-pane active fade in">
-			
 		<table class="table">
 			<tbody>
 				<tmpl_if name="is_admin">
@@ -21,7 +19,6 @@
 						<td for="vm_id"><tmpl_var name="vm_id_txt"></td>
 						<td>{tmpl_var name='vm_id'}</td>
 					</tr>
-
 				</tmpl_if>
 				<tr>
 					<td for="vm_name"><tmpl_var name="vm_nom_txt"></td>
@@ -32,17 +29,17 @@
 					<td>{tmpl_var name='vm_status'}</td>
 				</tr>
 				<tr>
-				         <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
-				         <td>{tmpl_var name='vm_parent'}</td>
+				    <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
+				    <td>{tmpl_var name='vm_parent'}</td>
 				</tr>
 				<tr>
-				         <td for="vm_ostype"><tmpl_var name="vm_ostype_txt"></td>
-				         <td>{tmpl_var name='vm_ostype'}</td>
+				    <td for="vm_ostype"><tmpl_var name="vm_ostype_txt"></td>
+				    <td>{tmpl_var name='vm_ostype'}</td>
 				</tr>
-				<tr>
-				         <td for="vm_arch"><tmpl_var name="vm_arch_txt"></td>
-				         <td>{tmpl_var name='vm_arch'}</td>
-				</tr>
+				<!-- <tr>
+				    <td for="vm_arch"><tmpl_var name="vm_arch_txt"></td>
+				    <td>{tmpl_var name='vm_arch'}</td>
+				</tr> -->
 				<tr>
 					<td for="vm_uptime"><tmpl_var name="vm_uptime_txt"></td>
 					<td>{tmpl_var name='vm_uptime'} {tmpl_var name='vm_time_txt'}</td>
@@ -69,23 +66,18 @@
 					( {tmpl_var name='vm_mem'} / {tmpl_var name='vm_maxmem'} MB )
 					</td>
 				</tr>
-				<tmpl_loop name="hdds">
-					<tr>
-						<td>{tmpl_var name='vm_hdd_txt'}: <tmpl_var name="hddsnum"></td>
-						<td>
-						    <div><tmpl_var name="size"></div>
-						</td>
-					</tr>
-          	  		</tmpl_loop>
 				<tr>
-				        <td for="vm_netin"><tmpl_var name="vm_netin_txt"></td>
-				        <td>{tmpl_var name='vm_netin'} kb/s</td>
+					<td for="vm_netin"><tmpl_var name="vm_netin_txt"></td>
+					<td>{tmpl_var name='vm_netin'} kb/s</td>
 				</tr>
 				<tr>
-				        <td for="vm_netout"><tmpl_var name="vm_netout_txt"></td>
-				        <td>{tmpl_var name='vm_netout'} kb/s</td>
+					<td for="vm_netout"><tmpl_var name="vm_netout_txt"></td>
+					<td>{tmpl_var name='vm_netout'} kb/s</td>
 				</tr>
-				
+				<tr>
+					<td>{tmpl_var name='vm_hdd_txt'}</td>
+					<td><tmpl_var name="vm_maxhdd"> GB</td>
+				</tr>
 				<tmpl_loop name="networks">
 					<tr>
 						<td><tmpl_var name="interface"></td>
@@ -107,10 +99,10 @@
 						</td>
 					</tr>
           	  	</tmpl_loop>
-			<tr>
-			          <td for="vm_nameserver"><tmpl_var name="vm_nameserver_txt"></td>
-			          <td>{tmpl_var name='vm_nameserver'}</td>
-			</tr>
+				<tr>
+				    <td for="vm_nameserver"><tmpl_var name="vm_nameserver_txt"></td>
+				    <td>{tmpl_var name='vm_nameserver'}</td>
+				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
