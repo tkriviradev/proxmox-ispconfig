@@ -48,7 +48,6 @@ class page_action extends tform_actions {
 				
 				switch($_REQUEST['next_tab'])
 				{
-
 					case 'graphics':
 						//DO SOMETHING HERE
 					break; 
