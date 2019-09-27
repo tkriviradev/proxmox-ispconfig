@@ -75,7 +75,7 @@ class page_action extends tform_actions {
 					default:
 						$vm_status = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/status/current");
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
-					//	$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status"); // TEST
+						// $vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
 					
 						if ($vm_status != false)
 						{
