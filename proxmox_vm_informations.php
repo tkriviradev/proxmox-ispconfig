@@ -49,11 +49,11 @@ class page_action extends tform_actions {
 				switch($_REQUEST['next_tab'])
 				{
 					case 'graphics':
-						//DO SOMETHING HERE
+					//DO SOMETHING HERE
 					break; 
 
 					case 'backupreplication':
-						$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
+					$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
 			
 						if ($vm_replication != false)
 						{
@@ -111,7 +111,7 @@ class page_action extends tform_actions {
 						$keys2 = array_keys($vm_snapshot);
 						//$snp_temp = preg_grep('/^[1-9]+/', $keys2);
                         
-                        foreach ($keys2 as $snp) 
+						foreach ($keys2 as $snp) 
 						{
                         	//$arr_snp[$snp]['snpnum'] = $snp;
 							// $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
@@ -119,7 +119,7 @@ class page_action extends tform_actions {
 							   $arr_snp[$snp]['snpnum'] = $vm_snapshot[$snp]['name'];
 							   $arr_snp[$snp]['snpnum1'] = $vm_snapshot[$snp]['description'];
 							// $arr_snp[$snp]['snpnum'] = array_combine(array_column($vm_snapshot[$snp], 'name'), $vm_snapshot[$snp]);
-                       	}
+						}
 						case 'get_network':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
 
@@ -144,9 +144,9 @@ class page_action extends tform_actions {
 								$arr_net[$net][$k] = $v;
 							}
 						}
-						
+
 						$app->tpl->setloop('networks', $arr_net);
-                        $app->tpl->setloop('snps', $arr_snp);
+						$app->tpl->setloop('snps', $arr_snp);
 						break;
 					}
 				
