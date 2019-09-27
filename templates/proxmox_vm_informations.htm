@@ -24,7 +24,7 @@
 					<td for="vm_name"><tmpl_var name="vm_nom_txt"></td>
 					<td>{tmpl_var name='vm_name'}</td>
 				</tr>
-				<tr >
+				<tr>
 					<td for="vm_status"><tmpl_var name="vm_status_txt"></td>
 					<td>{tmpl_var name='vm_status'}</td>
 				</tr>
@@ -108,11 +108,11 @@
 				<tr>
 		        	<td colspan="2">
 		        		<div class="right">
-						    <button class="btn btn-default formbutton-success" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=start">{tmpl_var name='vm_start_txt'}</button>
-							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=shutdown">{tmpl_var name='vm_shutdown_txt'}</button>
-							<button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=reset">{tmpl_var name='vm_reset_txt'}</button>
-							<button class="btn btn-default formbutton-danger"data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=kill">{tmpl_var name='vm_kill_txt'}</button>
-							<button class="btn btn-default formbutton-default" data-load-content="proxmox/proxmox_vm_list.php">{tmpl_var name='btn_cancel_txt'}</button>
+	   <button class="btn btn-default formbutton-success" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=start">{tmpl_var name='vm_start_txt'}</button>
+	   <button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=shutdown">{tmpl_var name='vm_shutdown_txt'}</button>
+	   <button class="btn btn-default formbutton-danger" data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=reset">{tmpl_var name='vm_reset_txt'}</button>
+	   <button class="btn btn-default formbutton-danger"data-submit-form="pageForm" data-form-action="proxmox/proxmox_action.php?r=kill">{tmpl_var name='vm_kill_txt'}</button>
+	   <button class="btn btn-default formbutton-default" data-load-content="proxmox/proxmox_vm_list.php">{tmpl_var name='btn_cancel_txt'}</button>
 						</div>
 					</td>
 		    	</tr>

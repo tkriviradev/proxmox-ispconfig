@@ -157,14 +157,13 @@ class page_action extends tform_actions {
 				$app->error($app->tform->wordbook["vm_err_login"]);
 				exit;
 			}
-
 		}
 		else {
 			//print("Could not create PVE2_API object.\n");
 			$app->error($app->tform->wordbook["vm_err_api_obj"]);
 			exit;
 		}
-			
+
 		parent::onShowEnd();
 	}
 }
@@ -173,4 +172,3 @@ $page = new page_action;
 $page->onLoad();
 
 ?>
-
