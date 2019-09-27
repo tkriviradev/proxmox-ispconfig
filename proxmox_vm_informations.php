@@ -113,7 +113,7 @@ class page_action extends tform_actions {
                         
 						foreach ($keys2 as $snp) 
 						{
-                        	//$arr_snp[$snp]['snpnum'] = $snp;
+							//$arr_snp[$snp]['snpnum'] = $snp;
 							// $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
 							// $arr_snp[$snp]['snpnum'] = implode(" ", array_keys($vm_snapshot[$snp]));
 							   $arr_snp[$snp]['snpnum'] = $vm_snapshot[$snp]['name'];
