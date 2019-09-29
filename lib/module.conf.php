@@ -27,7 +27,7 @@ if($_SESSION["s"]["user"]["typ"] == 'admin') {
 
 
 
-$items[] = array( 'title'  => 'Virtuals Instances',
+$items[] = array( 'title'  => 'Virtual Instances',
 	'target'  => 'content',
 	'link' => 'proxmox/proxmox_vm_list.php',
 	'html_id' => 'proxmox_vm_list');
@@ -38,7 +38,5 @@ if(count($items))
 		'open'  => 1,
 		'items' => $items);
 }
-
-
 
 ?>
