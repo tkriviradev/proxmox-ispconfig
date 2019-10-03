@@ -96,6 +96,8 @@ class PVE2_API {
 			// We store a UNIX timestamp of when the ticket was generated here,
 			// so we can identify when we need a new one expiration-wise later
 			// on...
+			/* expire in 1 hour */
+			setcookie("PVEAuthCookie", $this->login_ticket['ticket'], time()+3600, "/", 'dcp.solutions', false);
 			$this->login_ticket_timestamp = time();
 			$this->reload_node_list();
 			return true;

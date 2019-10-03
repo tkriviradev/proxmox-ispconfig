@@ -32,6 +32,7 @@ class page_action extends tform_actions {
 		global $app, $conf;
 	
 		$pve2 = new PVE2_API($conf["pve_link"], $conf["pve_username"], $conf["pve_realm"], $conf["pve_password"]);
+		setcookie("test2", "Hello1", time()+3600, "/", null, false);
 		
 		if ($pve2) {
 			if ($pve2->login()) {
@@ -52,7 +53,7 @@ class page_action extends tform_actions {
 					//DO SOMETHING HERE
 					break; 
 
-					case 'backupreplication':
+					case 'Replication':
 					$vm_replication = $pve2->get("/nodes/{$vm_pvesvr}/replication/{$vm_id}-0/status");
 			
 						if ($vm_replication != false)
@@ -65,11 +66,10 @@ class page_action extends tform_actions {
 							$app->tpl->setVar("vm_rep_last_sync", $vm_replication['last_sync']);
 							$app->tpl->setVar("vm_rep_comment", $vm_replication['comment']);
 						}
-						else
-						{
-							$app->error($app->tform->wordbook["vm_err_assignation"]);
-						}
-					break;
+						// else
+						// {
+						// 	$app->error($app->tform->wordbook["vm_err_assignation"]);
+						// }
 
 					case 'informations':
 					default:
@@ -100,10 +100,10 @@ class page_action extends tform_actions {
 							$cpu_percent_used = ($vm_status['cpu'] * 100) ;
 							$app->tpl->setVar("used_percentage1", $app->functions->intval($cpu_percent_used) );
 						}
-						else
-						{
-							$app->error($app->tform->wordbook["vm_err_assignation"]);
-						}
+						// else
+						// {
+						// 	$app->error($app->tform->wordbook["vm_err_assignation"]);
+						// }
 					
 						case 'get_snapshot':
 						$vm_snapshot = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/snapshot");

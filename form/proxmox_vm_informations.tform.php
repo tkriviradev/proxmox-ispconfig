@@ -89,10 +89,17 @@ $form["tabs"]['graphics'] = array (
 	'readonly' => true,
 );
 
-$form["tabs"]['backupreplication'] = array (
-       'title'  => "Backup&Replication", // Need to translate with variable
+$form["tabs"]['Replication'] = array (
+       'title'  => "Replication", // Need to translate with variable
        'width'  => 100,
-       'template'  => "templates/proxmox_vm_backup_replication.htm",
+       'template'  => "templates/proxmox_vm_replication.htm",
+       'readonly' => true,
+);
+
+$form["tabs"]['Backup'] = array (
+       'title'  => "Backup", // Need to translate with variable
+       'width'  => 100,
+       'template'  => "templates/proxmox_vm_backup.htm",
        'readonly' => true,
 );
 
