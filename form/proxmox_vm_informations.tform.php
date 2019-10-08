@@ -104,7 +104,7 @@ $form["tabs"]['Backup'] = array (
 );
 
 $form["tabs"]['snapshotes'] = array (
-       'title'  => "Snapshotes", // Need to translate with variable
+       'title'  => "Snapshots", // Need to translate with variable
        'width'  => 100,
        'template'  => "templates/proxmox_vm_snapshotes.htm",
        'readonly' => true,

@@ -69,4 +69,8 @@ $wb["vm_mode_txt"] = 'Mode';
 $wb["vm_model_txt"] = 'Model';
 $wb["vm_firewall_txt"] = 'Firewall';
 $wb["vm_queues_txt"] = 'Multiqueues';
+$wb["vm_take_snapshot_txt"] = 'Take snapshot';
+$wb["vm_rollback_snapshot_txt"] = 'Rollback';
+$wb["vm_remove_snapshot_txt"] = 'Remove';
+$wb["vm_snapshots_txt"] = 'Snapshots';
 ?>

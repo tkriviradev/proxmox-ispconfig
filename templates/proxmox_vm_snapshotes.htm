@@ -29,13 +29,13 @@
                      <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
                      <td>{tmpl_var name='vm_parent'}</td>
                 </tr>
-				 <tmpl_loop name="snps">
+				 <!---<tmpl_loop name="snps">
                     <tr>
                         <td>{tmpl_var name='vm_snp_name_txt'}: <tmpl_var name="snpnum"></td>
                         <td><tmpl_var name="snpnum1"></td>
                     </tr>
                 </tmpl_loop>
-			   <!---<tr>
+			   <tr>
                     	<td for="vm_snp_name"><tmpl_var name="vm_snp_name_txt"></td>
                     	<td>{tmpl_var name='vm_snp_name'}</td>
                     </tr>
@@ -50,15 +50,56 @@
                     <tr>
                         <td for="vm_snp_description"><tmpl_var name="vm_snp_description_txt"></td>
                         <td>{tmpl_var name='vm_snp_description'}</td>
-					</tr> -->
+					</tr>
                 <tmpl_loop name="snapshots">
                     <tr>
                         <td><tmpl_var name="vm_snapshot"></td>
                                 <div>{tmpl_var name='vm_snapshot_txt'} : <tmpl_var name="vm_snapshot"></div>
                         </td>
                     </tr>
-                </tmpl_loop>
+                </tmpl_loop> -->
 			</tbody>
-		</table>	
+		</table>
+		<br/>
+		<span style="padding-left: 28px; font-weight: bold;"><tmpl_var name="vm_snapshots_txt"></span>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td style="width: 20px;"></td>
+					<td>{tmpl_var name='vm_snp_name_txt'}</td>
+					<td>{tmpl_var name='vm_snp_snaptime_txt'}</td>
+					<td>{tmpl_var name='vm_snp_parent_txt'}</td>
+					<td>{tmpl_var name='vm_snp_description_txt'}</td>
+				</tr>
+				<tmpl_loop name="snps">
+				<tr> 
+					<td><input type="checkbox"/></td>           			
+					<td><tmpl_var name="snpnum"></td>
+					<td><tmpl_var name="snptime"></td>
+					<td><tmpl_var name="snpparent"></td>
+					<td><tmpl_var name="snpdescr"></td>
+				</tr>
+				</tmpl_loop>
+			</tbody>
+			<tfoot>
+				<tr>
+		        	<td colspan="5">
+		        		<div class="right">
+						   <button class="btn btn-default formbutton-success" data-toggle="collapse" data-target="#new_snapshot">{tmpl_var name='vm_take_snapshot_txt'}</button>
+						   <button class="btn btn-default formbutton-danger" data-submit-form="" data-form-action="proxmox/proxmox_action.php?r=rollback_snapshot">{tmpl_var name='vm_rollback_snapshot_txt'}</button>
+						   <button class="btn btn-default formbutton-danger" data-submit-form="" data-form-action="proxmox/proxmox_action.php?r=remove_snapshot">{tmpl_var name='vm_remove_snapshot_txt'}</button>
+						</div>
+					</td>
+		    	</tr>
+			</tfoot>
+		</table>
+		
+		<button data-toggle="collapse" data-target="#demo">Collapsible</button>
+
+		<div id="demo" class="collapse">
+		Lorem ipsum dolor text....
+		</div> 
+
+
 	</div>
 </div>

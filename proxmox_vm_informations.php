@@ -71,6 +71,19 @@ class page_action extends tform_actions {
 						// 	$app->error($app->tform->wordbook["vm_err_assignation"]);
 						// }
 
+						case 'Backup':
+						$vm_backup = $pve2->get("/nodes/{$vm_pvesvr}/storage/{$vm_id}-0/status");
+				
+							if ($vm_backup != false)
+							{
+								$app->tpl->setVar("vm_rep_target", $vm_backup['target']);
+
+							}
+							// else
+							// {
+							// 	$app->error($app->tform->wordbook["vm_err_assignation"]);
+							// }
+
 					case 'informations':
 					default:
 						$vm_status = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/status/current");
@@ -113,12 +126,16 @@ class page_action extends tform_actions {
                         
 						foreach ($keys2 as $snp) 
 						{
-							//$arr_snp[$snp]['snpnum'] = $snp;
-							// $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
-							// $arr_snp[$snp]['snpnum'] = implode(" ", array_keys($vm_snapshot[$snp]));
+						    if ($vm_snapshot[$snp]['name'] != "current") {
+							   //$arr_snp[$snp]['snpnum'] = $snp;
+							   // $arr_snp[$snp]['snpnum'] = implode(" ",$vm_snapshot[$snp]);
+							   // $arr_snp[$snp]['snpnum'] = implode(" ", array_keys($vm_snapshot[$snp]));
 							   $arr_snp[$snp]['snpnum'] = $vm_snapshot[$snp]['name'];
-							   $arr_snp[$snp]['snpnum1'] = $vm_snapshot[$snp]['description'];
-							// $arr_snp[$snp]['snpnum'] = array_combine(array_column($vm_snapshot[$snp], 'name'), $vm_snapshot[$snp]);
+							   $arr_snp[$snp]['snpdescr'] = $vm_snapshot[$snp]['description'];
+							   $arr_snp[$snp]['snptime'] = ($vm_snapshot[$snp]['snaptime']?date("d.m.Y H:s", $vm_snapshot[$snp]['snaptime']):"");
+							   $arr_snp[$snp]['snpparent'] = $vm_snapshot[$snp]['parent'];
+							   // $arr_snp[$snp]['snpnum'] = array_combine(array_column($vm_snapshot[$snp], 'name'), $vm_snapshot[$snp]);
+						    }							  
 						}
 						case 'get_network':
 						$vm_config = $pve2->get("/nodes/{$vm_pvesvr}/{$vm_containers}/{$vm_id}/config");
