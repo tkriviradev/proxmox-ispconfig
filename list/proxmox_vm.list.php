@@ -88,6 +88,15 @@ if($_SESSION['s']['user']['typ'] == 'admin') {
 		'suffix' => "%",
 		'width' => "",
 		'value' => "");
+	
+	$liste["item"][] = array(   'field'     => "vm_containers",
+		'datatype' => "VARCHAR",
+		'formtype' => "TEXT",
+		'op' => "like",
+		'prefix' => "%",
+		'suffix' => "%",
+		'width' => "",
+		'value' => "");
 
 	$liste["item"][] = array(   'field'     => "vm_description",
 		'datatype' => "VARCHAR",

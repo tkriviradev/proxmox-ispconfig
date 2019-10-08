@@ -13,6 +13,7 @@
         <thead class="dark form-group-sm">
             <tr>
                 <th data-column="sys_groupid"><tmpl_var name="client_id_txt"></th>
+                <th class="tiny-col" data-column="vm_type"><tmpl_var name="vm_type_txt"></th>
                 <th class="tiny-col" data-column="vm_id"><tmpl_var name="vm_id_txt"></th>
                 <th data-column="vm_name"><tmpl_var name="vm_name_txt"></th>
                 <th data-column="vm_description"><tmpl_var name="vm_description_txt"></th>
@@ -20,6 +21,7 @@
             </tr>
             <tr>
                 <td><select class="form-control" name="search_sys_groupid">{tmpl_var name='search_sys_groupid'}</select></td>
+                <td><input class="form-control" type="text" name="search_vm_containers" value="{tmpl_var name='search_vm_containers'}" /></td>
                 <td><input class="form-control" type="text" name="search_vm_id" value="{tmpl_var name='search_vm_id'}" /></td>
                 <td><input class="form-control" type="text" name="search_vm_name" value="{tmpl_var name='search_vm_name'}" /></td>
                 <td><input class="form-control" type="text" name="search_vm_description" value="{tmpl_var name='search_vm_description'}" /></td>
@@ -32,6 +34,7 @@
             <tmpl_loop name="records">
                 <tr>
                     <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="sys_groupid"}</a></td>
+                    <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_containers"}</a></td>
                     <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_id"}</a></td>
                     <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_name"}</a></td>
                     <td><a href="#" data-load-content="proxmox/proxmox_vm_informations.php?id={tmpl_var name='id'}">{tmpl_var name="vm_description"}</a></td>                    

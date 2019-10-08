@@ -7,6 +7,7 @@ $wb["vm_name_txt"] = 'Virtual server name';
 $wb["vm_description_txt"] = 'Description';
 $wb["vm_pvesvr_txt"] = 'Host server';
 $wb["vm_id_txt"] = 'VM id';
+$wb["vm_type_txt"] = 'Type';
 $wb["add_new_assignation_txt"] = 'VM assignation';
 $wb["edit_txt"] = 'Edit' ;
 
