@@ -197,6 +197,8 @@ class PVE2_API {
 		$split_action_response = explode("\r\n\r\n", $action_response, 2);
 		$header_response = $split_action_response[0];
 		$body_response = $split_action_response[1];
+		$test =  json_decode($body_response, true);
+		return $test['data'];
 		$action_response_array = json_decode($body_response, true);
 		$action_response_export = var_export($action_response_array, true);
 		error_log("----------------------------------------------\n" .

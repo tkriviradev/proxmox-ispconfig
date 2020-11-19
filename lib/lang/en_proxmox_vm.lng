@@ -75,4 +75,6 @@ $wb["vm_rollback_snapshot_txt"] = 'Rollback';
 $wb["vm_remove_snapshot_txt"] = 'Remove';
 $wb["vm_snapshots_txt"] = 'Snapshots';
 $wb["vm_refresh_txt"] = 'Refresh';
+$wb["vm_starttime_txt"] = 'Start time';
+$wb["vm_dayofweek_txt"] = 'Day of week';
 ?>

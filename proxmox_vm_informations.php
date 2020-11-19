@@ -68,7 +68,7 @@ class page_action extends tform_actions {
 							$app->tpl->setVar("vm_rep_next_sync", $vm_replication['next_sync']);
 							$app->tpl->setVar("vm_rep_last_sync", $vm_replication['last_sync']);
 							$app->tpl->setVar("vm_rep_comment", $vm_replication['comment']);
-						}
+						} 
 						// else
 						// {
 						// 	$app->error($app->tform->wordbook["vm_err_assignation"]);
@@ -82,6 +82,34 @@ class page_action extends tform_actions {
 								$app->tpl->setVar("vm_rep_target", $vm_backup['target']);
 
 							}
+							
+							
+							$cluster_backup_jobs =   $pve2->get("/cluster/backup");
+							$weekdays = array(
+							    'mon'=>'Monday',
+							    'tue'=>'Tuesday ',
+							    'wed'=>'Wednesday',
+							    'thu'=>'Thusday',
+							    'fri'=>'Friday',
+							    'sat'=>'Saturday',
+							    'sun'=>'Sunday',
+							    
+							);
+							
+							$vm_backup_jobs_info = array();
+							foreach ($cluster_backup_jobs as $job_id => $job) {
+							    $tmp_vm_ids = array();
+							    $tmp_vm_ids = explode(',', $job['vmid']);
+							    
+							    if (in_array($vm_id, $tmp_vm_ids)) {
+							        $vm_backup_jobs_info[$job_id]['starttime'] = $job['starttime'];
+							        $vm_backup_jobs_info[$job_id]['day'] = $weekdays[$job['dow']];
+							        $vm_backup_jobs_info[$job_id]['mode'] = $job['mode'];
+							    }
+							    
+							}
+							
+							$app->tpl->setloop("backup_jobs", $vm_backup_jobs_info);
 							// else
 							// {
 							// 	$app->error($app->tform->wordbook["vm_err_assignation"]);

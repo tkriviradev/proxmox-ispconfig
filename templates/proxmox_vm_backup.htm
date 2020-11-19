@@ -24,15 +24,18 @@
 					<td for="vm_pvesvr"><tmpl_var name="vm_pvesvr_txt"></td>
 					<td>{tmpl_var name='vm_pvesvr'}</td>
 				</tr>
-				<tr>
-                    <td for="vm_rep_target"><tmpl_var name="vm_rep_target_txt"></td>
-                    <td>{tmpl_var name='vm_rep_target'}</td>
-                </tr>
-				<tr>
-				    <td for="vm_rep_fail_count"><tmpl_var name="vm_rep_fail_count_txt"></td>
-				    <td>{tmpl_var name='vm_rep_fail_count'}</td>
-				</tr>
 				</tmpl_if>
+				
+				<tr>
+					<td for="vm_pvesvr"><tmpl_var name="vm_starttime_txt"></td>
+					<td>					
+						<tmpl_loop name="backup_jobs">
+							<tmpl_var name="day"> at <tmpl_var name="starttime">,  <tmpl_var name="vm_mode_txt">: <tmpl_var name="mode"><br/>
+						</tmpl_loop>
+					</td>
+				</tr>				
+				
+				<!-- 
 				<tr>
 					<td for="vm_rep_schedule"><tmpl_var name="vm_rep_schedule_txt"></td>
 					<td>{tmpl_var name='vm_rep_schedule'}</td>
@@ -53,6 +56,8 @@
 					<td for="vm_rep_comment"><tmpl_var name="vm_rep_comment_txt"></td>
 					<td>{tmpl_var name='vm_rep_comment'}</td>
 				</tr>
+				
+				-->
 			</tbody>
 		</table>
 	</div>
