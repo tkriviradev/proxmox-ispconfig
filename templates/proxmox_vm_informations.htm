@@ -26,7 +26,25 @@
 				</tr>
 				<tr>
 					<td for="vm_status"><tmpl_var name="vm_status_txt"></td>
-					<td>{tmpl_var name='vm_status'}</td>
+					<td>
+					<script type="text/javascript">
+
+						var machine_status = "{tmpl_var name='vm_status'}";
+
+						if (machine_status == 'running') {
+							document.getElementById("icon_status").className = "glyphicon glyphicon-play";
+							document.getElementById("icon_status").style.color = "#5cb85c";
+						} else if (machine_status == 'stopped') {
+							document.getElementById("icon_status").className = "glyphicon glyphicon-stop"; 
+							document.getElementById("icon_status").style.color = "#b60008";
+						} else if (machine_status == 'paused') {
+							document.getElementById("icon_status").className = "glyphicon glyphicon-pause";
+							document.getElementById("icon_status").style.color = "#428bca";
+						}
+						
+					</script>
+					 <span id="icon_status" aria-hidden="true"></span>	{tmpl_var name='vm_status'}
+					</td>
 				</tr>
 				<tr>
 				    <td for="vm_parent"><tmpl_var name="vm_parent_txt"></td>
@@ -76,13 +94,23 @@
 				</tr>
 				<tr>
 					<td>{tmpl_var name='vm_hdd_txt'}</td>
-					<td><tmpl_var name="vm_maxhdd"> GB</td>
+					<td>
+						<tmpl_loop name="all_hdds">
+							(<tmpl_var name="name">) <tmpl_var name="info"><br/>
+						</tmpl_loop>								
+					</td>
 				</tr>
 				<tmpl_loop name="networks">
 					<tr>
 						<td><tmpl_var name="interface"></td>
 						<td>
-							<div>{tmpl_var name='vm_ip_txt'} : <tmpl_var name="ip"></div>
+							<div>{tmpl_var name='vm_ip_txt'} : <tmpl_var name="ip">
+							<!--  
+								<tmpl_loop name="ips">
+									<tmpl_var name="ip">
+								</tmpl_loop>
+							-->
+							</div>
 							<div>{tmpl_var name='vm_mac_txt'} : <tmpl_var name="hwaddr"><tmpl_var name="virtio"></div>
 							<div><a href="#" data-submit-form="pageForm" data-form-action="proxmox/ajax_config.php?interface={tmpl_var name='interface'}" >{tmpl_var name='vm_disconnect_txt'} : {tmpl_var name='link_state'}</a></div>
 							<tmpl_if name="is_admin">

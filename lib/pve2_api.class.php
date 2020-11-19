@@ -27,6 +27,7 @@ class PVE2_API {
 	protected $port;
 	protected $verify_ssl;
 	protected $login_ticket = null;
+	public $csrf_prevention_token = null;
 	protected $login_ticket_timestamp = null;
 	protected $cluster_node_list = null;
 	public function __construct ($hostname, $username, $realm, $password, $port = 443, $verify_ssl = false) {
@@ -91,17 +92,29 @@ class PVE2_API {
 			}
 			return false;
 		} else {
-			// Login success.
-			$this->login_ticket = $login_ticket_data['data'];
+		    // Login success.
+		    $this->login_ticket = $login_ticket_data['data'];
+		    //CSRFPreventionToken header needed for any write request (POST, PUT, DELETE)
+		    $this->csrf_prevention_token = $login_ticket_data['data']['CSRFPreventionToken'];
 			// We store a UNIX timestamp of when the ticket was generated here,
 			// so we can identify when we need a new one expiration-wise later
 			// on...
-			/* expire in 1 hour */
-			setcookie("PVEAuthCookie", $this->login_ticket['ticket'], time()+3600, "/", 'dcp.solutions', false);
+		    /* expire in 1 hour */
+		    setcookie("PVEAuthCookie", $this->login_ticket['ticket'], time()+3600, "/", 'dcp.solutions', false);
 			$this->login_ticket_timestamp = time();
 			$this->reload_node_list();
 			return true;
 		}
+	}
+	
+	// returns CSRF Token
+	public function getCSRFTocken () {
+	    return $this->csrf_prevention_token;
+	}
+	
+	// returns Ticket
+	public function getTicket () {
+	    return $this->login_ticket;
 	}
 	/*
 	 * bool check_login_ticket ()

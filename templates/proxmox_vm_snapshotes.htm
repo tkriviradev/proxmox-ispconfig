@@ -1,5 +1,135 @@
+<script type="text/javascript">
+
+	var pve_link = "{tmpl_var name='pve_link'}";
+	var vm_pvesvr = "{tmpl_var name='vm_pvesvr'}";
+	var vm_containers = "{tmpl_var name='vm_containers'}";
+	var vm_id = "{tmpl_var name='vm_id'}";
+	var csrf_prevention_token = "{tmpl_var name='csrf_prevention_token'}";
+	
+	//TO BE DELETED
+	//var vm_pvesvr = $("#vm_pvesvr").val();
+	//var vm_containers = $("#vm_containers").val();
+	//var vm_id = $("#vm_id").val();
+	
+	var currentDate = new Date();
+	var date = ('0' + currentDate.getDate()).slice(-2);
+	var month = ('0' + (currentDate.getMonth()+1)).slice(-2);
+	var year = currentDate.getFullYear();
+	var hours = ('0' + currentDate.getHours()).slice(-2);
+	var minutes = ('0' + currentDate.getMinutes()).slice(-2);
+	var seconds = ('0' + currentDate.getSeconds()).slice(-2);
+	
+	var default_snapshot_name = 'snapshot_'+vm_pvesvr+'_'+vm_id+'_'+year+month+date+hours+minutes+seconds;
+	$("#snapname").val(default_snapshot_name);
+	
+
+	//check if the vm is lxc or qemu
+	if (vm_containers == 'lxc'){
+		$("#includeram").hide();
+		$("#vmstate").attr('disabled', true);
+	}
+
+	
+	$(document).ready(function () {
+		
+		
+	    $('#newSnapshot').on('submit', function(e) {
+	        $('#collapseNewSnapshot').hide();	        
+	        e.preventDefault();
+	        $.ajax({
+	            url : 'https://'+pve_link+'/api2/json/nodes/'+vm_pvesvr+'/'+vm_containers+'/'+vm_id+'/snapshot',
+	            data: $('#newSnapshot').serialize(),
+	            headers: {
+	                "CSRFPreventionToken":csrf_prevention_token,
+	            },
+	            type: "POST",
+	            crossDomain: true,	            
+	            
+	            xhrFields: {
+	                withCredentials: true
+	            },
+	            success: function () {
+	            	alert('Snapshot succefuly created!');
+	            	ISPConfig.changeTab('snapshotes','proxmox/proxmox_vm_informations.php');
+	            },
+	            error: function (jXHR, textStatus, errorThrown) {
+            	  var err = jQuery.parseJSON(jXHR.responseText);
+            	  if (err.errors.snapname) {
+            		  errText = 'INVALID SNAPSHOT NAME: '+ err.errors.snapname;
+            		  alert(errText);
+            	  } else {
+            		  alert(err.errors.vmstate);
+            	  }
+
+	            	ISPConfig.changeTab('snapshotes','proxmox/proxmox_vm_informations.php');
+	            }
+	        });
+	     });
+
+	  $('.remove_snapshot').click(function(){
+	  	snapshotname = this.id;
+	    if (confirm('Are you sure you want to delete snapshot '+snapshotname+'?')) {
+	    	
+	    	$.ajax({
+	            url : 'https://'+pve_link+'/api2/json/nodes/'+vm_pvesvr+'/'+vm_containers+'/'+vm_id+'/snapshot/'+snapshotname,
+	            data: '',
+	            headers: {
+	                "CSRFPreventionToken":csrf_prevention_token,
+	            },
+	    		type: "DELETE",
+	            crossDomain: true,
+	            xhrFields: {
+	                withCredentials: true
+	            },
+	            success: function () {
+	            	alert('Snapshot succefuly deleted!');
+	            	ISPConfig.changeTab('snapshotes','proxmox/proxmox_vm_informations.php');
+	            },
+	            error: function (jXHR, textStatus, errorThrown) {
+            	  var err = jQuery.parseJSON(jXHR.responseText);
+				  alert(err.errors);
+	            }
+		    });
+		  }
+	  });
+	  
+	  $('.rollback_snapshot').click(function(){
+		  	snapshotname = this.id;
+		    if (confirm('Are you sure you want to rollback to snapshot '+snapshotname+'?')) {
+				//Rollback vm/container
+		    	$.ajax({
+		           	url : 'https://'+pve_link+'/api2/json/nodes/'+vm_pvesvr+'/'+vm_containers+'/'+vm_id+'/snapshot/'+snapshotname+'/rollback',
+		            data: '',
+		            headers: {
+		                "CSRFPreventionToken":csrf_prevention_token,
+		            },
+		    		type: "POST",
+		            crossDomain: true,
+		            xhrFields: {
+		                withCredentials: true
+		            },
+		            success: function () {
+			            alert('Rollback successful!');		            
+			            ISPConfig.changeTab('snapshotes','proxmox/proxmox_vm_informations.php');
+		            },
+		            error: function (jXHR, textStatus, errorThrown) {
+	            	  var err = jQuery.parseJSON(jXHR.responseText);
+					  alert(JSON.stringify(err.errors));
+		            }
+			    }); 	
+			 }
+		 });
+	});
+	
+</script>
+
 <input name="id" id="id" value="{tmpl_var name='id'}" type="hidden"/>
+<!-- TO BE DELETED
 <input name="vm_pvesvr" id="vm_pvesvr" value="{tmpl_var name='vm_pvesvr'}" type="hidden" />
+<input name="vm_containers" id="vm_containers" value="{tmpl_var name='vm_containers'}" type="hidden" />
+<input name="vm_id" id="vm_id" value="{tmpl_var name='vm_id'}" type="hidden" />
+<input name="csrf_prevention_token" id="csrf_prevention_token" value="{tmpl_var name='csrf_prevention_token'}" type='hidden'>
+-->
 
 <div class='page-header'>
 	<h1><tmpl_var name="list_head_txt"></h1>
@@ -63,43 +193,85 @@
 		<br/>
 		<span style="padding-left: 28px; font-weight: bold;"><tmpl_var name="vm_snapshots_txt"></span>
 		<table class="table">
+			<form name="snapshotes">
 			<tbody>
 				<tr>
-					<td style="width: 20px;"></td>
-					<td>{tmpl_var name='vm_snp_name_txt'}</td>
-					<td>{tmpl_var name='vm_snp_snaptime_txt'}</td>
+					<td style="width: 30%;">{tmpl_var name='vm_snp_name_txt'}</td>
+					<td style="width: 7%;">{tmpl_var name='vm_snp_state_txt'}</td>
+					<td style="width: 10%;">{tmpl_var name='vm_snp_snaptime_txt'}</td>
 					<td>{tmpl_var name='vm_snp_parent_txt'}</td>
 					<td>{tmpl_var name='vm_snp_description_txt'}</td>
+					<td style="width: 5%;"></td>
+					<td style="width: 9%;"></td>
+					<td style="width: 1%;"></td>
 				</tr>
 				<tmpl_loop name="snps">
-				<tr> 
-					<td><input type="checkbox"/></td>           			
-					<td><tmpl_var name="snpnum"></td>
-					<td><tmpl_var name="snptime"></td>
-					<td><tmpl_var name="snpparent"></td>
-					<td><tmpl_var name="snpdescr"></td>
+				<tr>         			
+					<td><small><tmpl_var name="snpnum"></small></td>   			
+					<td><small><tmpl_var name="snpstate"></small></td>
+					<td><small><tmpl_var name="snptime"></small></td>
+					<td><small><tmpl_var name="snpparent"></small></td>
+					<td><small><tmpl_var name="snpdescr"></small></td>
+					<td>
+						<a class="btn btn-default formbutton-danger formbutton-narrow remove_snapshot" id="<tmpl_var name="snpnum">" href="#" onclick='return false;'>
+							<span class="icon icon-delete"></span>
+						</a>
+					</td>
+					<td>
+						<a class="btn btn-default formbutton-danger formbutton-narrow rollback_snapshot" id="<tmpl_var name="snpnum">" href="#" onclick='return false;'>
+							Rollback
+						</a>
+					</td>
+					<td></td>
 				</tr>
 				</tmpl_loop>
 			</tbody>
+			</form>
 			<tfoot>
 				<tr>
-		        	<td colspan="5">
+		        	<td colspan="8">
 		        		<div class="right">
-						   <button class="btn btn-default formbutton-success" data-toggle="collapse" data-target="#new_snapshot">{tmpl_var name='vm_take_snapshot_txt'}</button>
-						   <button class="btn btn-default formbutton-danger" data-submit-form="" data-form-action="proxmox/proxmox_action.php?r=rollback_snapshot">{tmpl_var name='vm_rollback_snapshot_txt'}</button>
-						   <button class="btn btn-default formbutton-danger" data-submit-form="" data-form-action="proxmox/proxmox_action.php?r=remove_snapshot">{tmpl_var name='vm_remove_snapshot_txt'}</button>
+						   <button class="btn btn-primary formbutton-success" type="button" data-toggle="collapse" data-target="#collapseNewSnapshot" aria-expanded="false" aria-controls="collapseNewSnapshot">{tmpl_var name='vm_take_snapshot_txt'}</button>
+		        		   <button class="btn btn-primary formbutton-success" type="button" onclick="ISPConfig.changeTab('snapshotes','proxmox/proxmox_vm_informations.php');"><span class="glyphicon glyphicon-refresh"></span> {tmpl_var name='vm_refresh_txt'}</button>
 						</div>
 					</td>
 		    	</tr>
 			</tfoot>
 		</table>
-		
-		<button data-toggle="collapse" data-target="#demo">Collapsible</button>
-
-		<div id="demo" class="collapse">
-		Lorem ipsum dolor text....
-		</div> 
-
-
+		<div id="form_output"></div>
+		<!-- Start New Snapshot form Include RAM, Description-->
+		<div class="collapse" id="collapseNewSnapshot">
+  			<div class="card card-body">
+				<br/>
+   				<h4 class="mb-5 h4">New Snapshot</h4>
+				<form id='newSnapshot' class="form-horizontal">					
+				  <div class="form-group">
+				    <label class="col-form-label col-sm-2" for="snapname">Name</label>
+				    <div class="col-sm-6"> 
+				    	<input type="text" class="form-control" name="snapname" id="snapname" value="">
+				    </div>
+				  </div>
+				  <div id="includeram" class="form-group">
+				    <label class="col-form-label col-sm-2" for="vmstate">Include RAM</label>
+				    <div class="col-sm-1">Yes 
+				    	<input type="hidden" class="form-control checkbox-inline" name="vmstate" id="vmstate" value="1" style="margin: 0px; padding: 0px">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-form-label col-sm-2" for="description">Description</label>
+				    <div class="col-sm-6">
+				    	<textarea class="form-control" name="description" id="description" rows="3"></textarea>
+				    </div>
+				  </div>					  
+				  <div class="form-group">
+				   <label class="control-label col-sm-2" for=""></label>
+				  	<div class="col-sm-6">
+				 		<button type="submit" class="btn btn-primary">Submit</button>
+				  	</div>
+				  </div>
+				</form>
+			</div> 
+		</div>
+		<!-- End New Snapshot form -->
 	</div>
 </div>

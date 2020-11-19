@@ -26,10 +26,7 @@
                                         <td>{tmpl_var name='vm_name'}</td>
                                 </tr>
 			<tfoot>
-				<?php
-					setcookie("PVEAuthCookie", 1, time()+3600, "/", "320s9709gf3842d42.dcp.solutions");	
-				?>
-				<iframe src="https://320s9709gf3842d42.dcp.solutions/?console=kvm&novnc=1&vmid={tmpl_var name='vm_id'}&vmname={tmpl_var name='vm_name'}&node={tmpl_var name='vm_pvesvr'}" frameborder="0" scrolling="no" width="100%" height="600px" scroll="auto"></iframe>
+				<iframe src="https://{tmpl_var name='pve_link'}/?console={tmpl_var name='vm_containers_iframe'}&novnc=1&vmid={tmpl_var name='vm_id'}&vmname={tmpl_var name='vm_name'}&node={tmpl_var name='vm_pvesvr'}" frameborder="0" scrolling="no" width="100%" height="600px" scroll="auto"></iframe>
 
 				<tr>
 		        	<td colspan="2">

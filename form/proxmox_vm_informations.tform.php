@@ -110,7 +110,7 @@ $form["tabs"]['snapshotes'] = array (
        'readonly' => true,
 );
 $form["tabs"]['console'] = array (
-       'title'  => "Console_beta", // Need to translate with variable
+       'title'  => "Console", // Need to translate with variable
        'width'  => 100,
        'template'  => "templates/proxmox_vm_console.htm",
        'readonly' => true,
